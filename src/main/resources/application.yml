@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/tasklist_db
+    username: postgres
+    password: mother1963
+  sql:
+    init:
+      mode: always
+      continue-on-error: false
+ #     data-locations: classpath:demo_data.sql
+security:
+  jwt:
+    secret: bmRmYnZ2amZudmp2anZqdm12YmR4aHhoZ2dzY3NseHBjb2NpdWRjZ3N2c2J4Y21ja0hGSEZIQkNCRkJGSEhOQ05DTkNNQ0tY
+    access: 3600000
+    refresh: 2592000000
