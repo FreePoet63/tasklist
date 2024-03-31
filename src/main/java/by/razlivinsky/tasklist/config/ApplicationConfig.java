@@ -2,6 +2,11 @@ package by.razlivinsky.tasklist.config;
 
 import by.razlivinsky.tasklist.web.security.JwtTokenFilter;
 import by.razlivinsky.tasklist.web.security.JwtTokenProvider;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -54,6 +59,32 @@ public class ApplicationConfig {
     }
 
     /**
+     * Creates and configures an OpenAPI instance for the Task List API.
+     *
+     * @return the configured OpenAPI instance
+     */
+    @Bean
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
+                .components(
+                        new Components()
+                                .addSecuritySchemes("bearerAuth",
+                                        new SecurityScheme()
+                                                .type(SecurityScheme.Type.HTTP)
+                                                .scheme("bearer")
+                                                .bearerFormat("JWT")
+                                )
+                )
+                .info(
+                        new Info()
+                                .title("Task List API")
+                                .description("Demo Spring Boot Application")
+                                .version("1.0")
+                );
+    }
+
+    /**
      * Filter chain for configuring security rules and filters using HttpSecurity.
      *
      * @param httpSecurity the HttpSecurity object
@@ -84,6 +115,10 @@ public class ApplicationConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/**")
+                .permitAll()
+                .requestMatchers("/swagger-ui/**")
+                .permitAll()
+                .requestMatchers("/v3/api-docs/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

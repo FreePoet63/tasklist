@@ -1,6 +1,8 @@
 package by.razlivinsky.tasklist.repository;
 
 import by.razlivinsky.tasklist.domain.task.Task;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +13,7 @@ import java.util.Optional;
  * @author razlivinsky
  * @since 09.03.2024
  */
+@Mapper
 public interface TaskRepository {
     /**
      * Retrieves the task with the specified ID.
@@ -34,7 +37,7 @@ public interface TaskRepository {
      * @param taskId the ID of the task
      * @param userId the ID of the user to whom the task is to be assigned
      */
-    void assignToUserById(Long taskId, Long userId);
+    void assignToUserById(@Param("taskId") Long taskId, @Param("userId") Long userId);
 
     /**
      * Updates the task information.
