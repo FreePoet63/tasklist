@@ -6,7 +6,6 @@ import by.razlivinsky.tasklist.repository.DataSourceConfig;
 import by.razlivinsky.tasklist.repository.TaskRepository;
 import by.razlivinsky.tasklist.repository.mappers.TaskRowMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.Optional;
  * @author razlivinsky
  * @since 09.03.2024
  */
-@Repository
 @RequiredArgsConstructor
 public class TaskRepositoryImpl implements TaskRepository {
     private final DataSourceConfig dataSourceConfig;

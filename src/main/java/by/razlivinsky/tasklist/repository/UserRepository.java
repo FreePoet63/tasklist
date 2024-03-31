@@ -2,6 +2,8 @@ package by.razlivinsky.tasklist.repository;
 
 import by.razlivinsky.tasklist.domain.user.Role;
 import by.razlivinsky.tasklist.domain.user.User;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Optional;
 
@@ -11,6 +13,7 @@ import java.util.Optional;
  * author razlivinsky
  * @since 09.03.2024
  */
+@Mapper
 public interface UserRepository {
     /**
      * Retrieves the user with the specified ID.
@@ -48,7 +51,7 @@ public interface UserRepository {
      * @param userId the ID of the user
      * @param role   the role to be assigned
      */
-    void insertUserRole(Long userId, Role role);
+    void insertUserRole(@Param("userId") Long userId, @Param("role") Role role);
 
     /**
      * Checks if the user is the owner of the specified task.
@@ -57,7 +60,7 @@ public interface UserRepository {
      * @param taskId the ID of the task
      * @return true if the user is the owner of the task, false otherwise
      */
-    boolean isTaskOwner(Long userId, Long taskId);
+    boolean isTaskOwner(@Param("userId") Long userId, @Param("taskId") Long taskId);
 
     /**
      * Deletes the user with the specified ID.
